@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickLink</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>Shorten your links</h1>
+   <p class="label">Paste your long link below</p>
+    
+
+    <input type="text" id="urlInput" placeholder="https://example.com/my-long-url">
+    <button onclick="shortenUrl()">Get shorter link</button>
+
+    <!-- Result Box -->
+    <div id="resultBox" class="result-box" style="display:none;">
+      <input type="text" id="shortUrlInput" readonly>
+      <button class="copy-btn" onclick="copyUrl()">Copy</button>
+      <p id="copyMsg" class="copy-msg"></p>
+    </div>
+  </div>
+
+<script>
+async function shortenUrl() {
+  const originalUrl = document.getElementById("urlInput").value;
+
+  if (!originalUrl) {
+    alert("Please enter a URL");
+    return;
+  }
+
+  try {
+    const res = await fetch("http://localhost:5000/shorten", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ originalUrl })
+    });
+
+    const data = await res.json();
+
+    document.getElementById("shortUrlInput").value = data.shortUrl;
+    document.getElementById("resultBox").style.display = "flex";
+
+  } catch (error) {
+    alert("Something went wrong");
+  }
+}
+
+function copyUrl() {
+  const copyInput = document.getElementById("shortUrlInput");
+  copyInput.select();
+  document.execCommand("copy");
+
+  document.getElementById("copyMsg").innerText = "Copied to clipboard!";
+}
+
+</script>
+
+</body>
+</html>
