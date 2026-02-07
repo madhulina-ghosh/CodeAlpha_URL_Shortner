@@ -112,6 +112,9 @@ Redirects users to the original long URL.
 
 ---
 
+📁 Project Structure
+
+
 CodeAlpha_URL_Shortner/
 
 |
