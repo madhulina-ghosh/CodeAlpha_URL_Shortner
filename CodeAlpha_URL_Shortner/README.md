@@ -33,7 +33,9 @@ CodeAlpha Internship Project
 📄 Internship Details
 
 Organization: CodeAlpha
+
 Domain: Backend Development
+
 Project: URL Shortener Web Application
 
 ---
